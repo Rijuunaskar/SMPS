@@ -1,9 +1,10 @@
 const jsonData = require('../document-final.json');
-const { modifyChargesData } = require('../tableDataModification/docType1/charges');
+const { modifyChargesData } = require('../dataModification/docType1/charges');
 const { sequelize, WagonDetails, Charges, FormData, File } = require('../models');
 const { customTrim } = require('../commonFunction');
-const { modifyWagonDetailsData } = require('../tableDataModification/docType1/wagonDetails');
+const { modifyWagonDetailsData } = require('../dataModification/docType1/wagonDetails');
 const { where } = require('sequelize');
+const { getFieldName } = require('../dataModification/docType1/formData');
 
 const extractText = (textAnchor, textContent) => {
     if (!textAnchor || !textAnchor.textSegments) return '';
@@ -55,11 +56,14 @@ const loadDocument = async (req, res) => {
         let tables = [];
         jsonData.pages.forEach(p => {
             p?.formFields?.forEach(e => {
-                formattedFieldData.push({
-                    fieldName: customTrim(e.fieldName.textAnchor.content),
-                    fieldValue: customTrim(e.fieldValue.textAnchor.content),
-                    fileId: fileId
-                });
+                let fieldName = getFieldName(customTrim(e.fieldName.textAnchor.content));
+                if(fieldName){
+                    formattedFieldData.push({
+                        fieldName,
+                        fieldValue: customTrim(e.fieldValue.textAnchor.content),
+                        fileId: fileId
+                    });
+                }
             })
             p?.tables?.forEach(t => {
                 let parsedData = parseDocumentAiTable(t, jsonData.text);
