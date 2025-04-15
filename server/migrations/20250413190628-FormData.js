@@ -1,7 +1,7 @@
 'use strict';
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Tables', {
+    await queryInterface.createTable('form_data', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -17,11 +17,7 @@ module.exports = {
         allowNull: false,
         defaultValue : ''
       },
-      rowNumber: {
-        type: Sequelize.INTEGER,
-        allowNull: false
-      },
-      docType: {
+      fileId: {
         type: Sequelize.INTEGER,
         allowNull: false
       },

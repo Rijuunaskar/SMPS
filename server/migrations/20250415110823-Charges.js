@@ -1,36 +1,54 @@
 'use strict';
+
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('files', {
+    await queryInterface.createTable('charges', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      fileName: {
-        type: Sequelize.STRING,
-        allowNull: false
-      },
-      filePath: {
-        type: Sequelize.STRING,
-        allowNull: false
-      },
-      docType: {
+      fileId: {
         type: Sequelize.INTEGER,
+        allowNull: false
+      },
+      otherChargesDcla: {
+        type: Sequelize.FLOAT,
+        defaultValue: 0,
+        allowNull: false
+      },
+      otherChargesPol1: {
+        type: Sequelize.FLOAT,
+        defaultValue: 0,
+        allowNull: false
+      },
+      otherChargesFauc: {
+        type: Sequelize.FLOAT,
+        defaultValue: 0,
+        allowNull: false
+      },
+      otherChargesEnhc: {
+        type: Sequelize.FLOAT,
+        defaultValue: 0,
+        allowNull: false
+      },
+      otherChargesGst: {
+        type: Sequelize.FLOAT,
+        defaultValue: 0,
         allowNull: false
       },
       createdBy: {
         type: Sequelize.INTEGER,
-        defaultValue:null
+        allowNull: true
       },
       updatedBy: {
         type: Sequelize.INTEGER,
-        defaultValue:null
+        allowNull: true
       },
       deletedBy: {
         type: Sequelize.INTEGER,
-        defaultValue:null
+        allowNull: true
       },
       createdAt: {
         allowNull: false,
@@ -48,7 +66,8 @@ module.exports = {
       }
     });
   },
+
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Files');
+    await queryInterface.dropTable('charges');
   }
 };

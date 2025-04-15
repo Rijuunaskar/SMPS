@@ -1,10 +1,20 @@
-'use strict';
 const { Model } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
   class File extends Model {
     static associate(models) {
-      // define association here if needed
+      File.hasMany(models.FormData, {
+        foreignKey: 'fileId',
+        as: 'formData'
+      });
+      File.hasMany(models.WagonDetails, {
+        foreignKey: 'fileId',
+        as: 'wagonDetails'
+      });
+      File.hasMany(models.Charges, {
+        foreignKey: 'fileId',
+        as: 'charges'
+      });
     }
   }
   File.init({
@@ -13,13 +23,17 @@ module.exports = (sequelize, DataTypes) => {
       autoIncrement: true,
       primaryKey: true
     },
-    filename: {
+    fileName: {
       type: DataTypes.STRING,
       allowNull: false
     },
-    filepath: {
+    filePath: {
       type: DataTypes.STRING,
       allowNull: false
+    },
+    docType:{
+      type: DataTypes.INTEGER,
+      allowNull : false
     },
     createdBy: {
       type: DataTypes.INTEGER
@@ -32,7 +46,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }, {
     sequelize,
-    modelName: 'File',
+    tableName: 'files',
     paranoid: true,
     timestamps: true
   });

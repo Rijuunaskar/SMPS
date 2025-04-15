@@ -2,12 +2,12 @@
 const { Model } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
-  class Table extends Model {
+  class FormData extends Model {
     static associate(models) {
       // define association here if needed
     }
   }
-  Table.init({
+  FormData.init({
     id: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
@@ -22,11 +22,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       defaultValue: ''
     },
-    rowNumber: {
-      type: DataTypes.INTEGER,
-      allowNull: false
-    },
-    docType: {
+    fileId: {
       type: DataTypes.INTEGER,
       allowNull: false
     },
@@ -44,10 +40,10 @@ module.exports = (sequelize, DataTypes) => {
     }
   }, {
     sequelize,
-    modelName: 'Table',
+    tableName: 'form_data',
     paranoid: true, // Enables soft delete by using deletedAt field
     timestamps: true // This ensures createdAt, updatedAt are automatically managed
   });
 
-  return Table;
+  return FormData;
 };
