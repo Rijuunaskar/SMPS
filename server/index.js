@@ -9,6 +9,7 @@ app.use(cors());
 app.use(express.json());
 
 app.post('/load-document', fileController.loadDocument);
+app.get('/get-all-file', fileController.getAllFileList);
 app.get('/get-data/:id', fileController.getDataByFileId);
 app.get('/', (req, res) => res.send('API is working!'));
 

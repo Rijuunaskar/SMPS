@@ -7,6 +7,10 @@ export const getData = async (id) => {
   return await axios.get(`${API_BASE_URL}/get-data/${id}`);
 };
 
+export const getAllFileList = async () => {
+  return await axios.get(`${API_BASE_URL}/get-all-file`);
+};
+
 export const postData = async (payload) => {
   return await axios.post(`${API_BASE_URL}/load-document`, payload);
 };

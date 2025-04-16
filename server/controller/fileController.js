@@ -125,4 +125,21 @@ const getDataByFileId = async (req, res) =>{
       }
 }
 
-module.exports = { loadDocument,getDataByFileId };
+const getAllFileList = async (req, res) =>{
+    try {
+        let result = await File.findAll({
+            order: [['id', 'DESC']],
+        });
+        const data = {
+          result,
+          message: 'Data fetched successfully!',
+          // Add any fetched data here
+        };
+        res.status(200).json(data);
+      } catch (error) {
+        console.error('Error loading document:', error);
+        res.status(500).json({ error: 'Something went wrong' });
+      }
+}
+
+module.exports = { loadDocument,getDataByFileId,getAllFileList };
