@@ -24,6 +24,7 @@ function FormStep1() {
       setFormData(response.data.result?.formData);
       setWagonData(response.data.result?.wagonDetails);
       setCharges(response.data.result?.charges[0]);
+      toast.success('Data Fetched successfully for '+ id);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -107,6 +108,7 @@ function FormStep1() {
           <Input
             type="file"
             onChange={onFileUpload}
+            multiple={true}
           // onlyAccept=".pdf"
           />
           {fileUploadLoader && (
